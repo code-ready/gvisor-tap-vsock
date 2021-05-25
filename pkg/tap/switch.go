@@ -196,6 +196,9 @@ loop:
 		if err != nil {
 			return errors.Wrap(err, "cannot read size from socket")
 		}
+		if n != len(sizeBuf) {
+			return fmt.Errorf("unexpected size %d != %d", n, len(sizeBuf))
+		}
 		size := int(e.protocol.Read(sizeBuf))
 
 		buf := make([]byte, size)
